@@ -1,0 +1,72 @@
+<div class="flex h-screen w-screen overflow-hidden bg-base-200">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-base-100 shadow-md fixed top-16 left-0 bottom-0 z-20 hidden md:block">
+    <div class="p-4">
+      <h1 class="text-lg font-bold mb-6">🏆 Manager</h1>
+      <ul class="menu menu-lg">
+        <li><a routerLink="/dashboard" routerLinkActive="active">🏠 Overview</a></li>
+        <li><a routerLink="/dashboard/tournaments" routerLinkActive="active">📅 Tournaments</a></li>
+        <li><a routerLink="/dashboard/teams" routerLinkActive="active">👥 Teams</a></li>
+        <li><a routerLink="/dashboard/players" routerLinkActive="active">🎽 Players</a></li>
+        <li><a routerLink="/dashboard/settings" routerLinkActive="active">⚙️ Settings</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Mobile Sidebar -->
+  <aside
+    class="w-64 bg-base-100 shadow-md fixed top-0 left-0 bottom-0 z-40 transition-transform transform md:hidden"
+    [ngClass]="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }"
+  >
+    <div class="pt-4">
+      <button class="md:hidden btn btn-ghost btn-sm" (click)="sidebarOpen = !sidebarOpen">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <span>Hello, Admin</span>
+    </div>
+    <div class="p-4 mt-16">
+      <h1 class="text-lg font-bold mb-6">🏆 Manager</h1>
+      <ul class="menu menu-lg">
+        <li><a routerLink="/dashboard" routerLinkActive="active" (click)="sidebarOpen = false">🏠 Overview</a></li>
+        <li><a routerLink="/dashboard/tournaments" routerLinkActive="active" (click)="sidebarOpen = false">📅
+          Tournaments</a></li>
+        <li><a routerLink="/dashboard/teams" routerLinkActive="active" (click)="sidebarOpen = false">👥 Teams</a></li>
+        <li><a routerLink="/dashboard/players" routerLinkActive="active" (click)="sidebarOpen = false">🎽 Players</a>
+        </li>
+        <li><a routerLink="/dashboard/settings" routerLinkActive="active" (click)="sidebarOpen = false">⚙️ Settings</a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+
+  <!-- Main section (includes navbar + content) -->
+  <div class="flex flex-col flex-1 ml-0 md:ml-64">
+    <!-- Top Navbar -->
+    <nav class="fixed top-0 left-0 right-0 h-16 bg-base-100 shadow z-30 px-4 flex items-center justify-between">
+      <div class="flex items-center gap-2 text-xl font-bold">
+        <!-- Hamburger Icon (Mobile only) -->
+        <button class="md:hidden btn btn-ghost btn-sm z-50" (click)="sidebarOpen = !sidebarOpen">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        🏟️ Dashboard
+      </div>
+
+      <div class="flex items-center gap-4">
+        <span class="hidden md:block">Hello, Admin</span>
+        <button (click)="logout()" class="btn btn-error">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="mt-16 p-6 overflow-y-auto h-[calc(100vh-4rem)]">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
