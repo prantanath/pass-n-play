@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {supabase} from '../../../.vscode/core/services/supabase-auth';
-import {NgClass, NgIf} from '@angular/common';
+import {NgClass} from '@angular/common';
+import {Profile} from '../services/profile';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,11 +18,20 @@ import {NgClass, NgIf} from '@angular/common';
 })
 export class Dashboard implements OnInit {
   sidebarOpen : boolean = false;
-  constructor(private router: Router) {
+  userId!:string;
+  userData:any;
+  constructor(private router: Router,
+              private profileService: Profile) {
   }
 
   async ngOnInit() {
     await this.fetchUserProfile();
+    this.profileService.getProfile(this.userId).subscribe({
+      next: data => {
+        this.userData = data;
+        console.log(data,'calling now');
+      }
+    });
   }
 
   async fetchUserProfile() {
@@ -36,6 +46,7 @@ export class Dashboard implements OnInit {
     }
 
     if (user) {
+      this.userId = user.id;
       const fullName = user.user_metadata?.['full_name'];
       console.log(user);
         const { error: insertError } = await supabase.from('profiles').insert([
