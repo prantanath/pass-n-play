@@ -1,0 +1,37 @@
+<div class="modal" [class.modal-open]="showModal">
+  <div class="modal-box w-full max-w-md">
+    <h3 class="font-bold text-lg mb-6 text-center">Add Tournament</h3>
+
+    <form [formGroup]="tournamentForm" (ngSubmit)="onClickSubmit()" class="space-y-4">
+      <!-- Name -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">Name</span>
+        </label>
+        <input class="input input-bordered w-full" formControlName="name" placeholder="Tournament name" />
+      </div>
+
+      <!-- Start Date -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">Start Date</span>
+        </label>
+        <input type="date" class="input input-bordered w-full" formControlName="startDate" />
+      </div>
+
+      <!-- End Date -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">End Date</span>
+        </label>
+        <input type="date" class="input input-bordered w-full" formControlName="endDate" />
+      </div>
+
+      <!-- Buttons -->
+      <div class="modal-action mt-6 flex justify-end gap-2">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn" type="button" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
